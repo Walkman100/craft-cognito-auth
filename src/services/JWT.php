@@ -20,6 +20,7 @@ use structureit\craftcognitoauth\CraftCognitoAuth;
 use Lcobucci\JWT\Parser;
 use Lcobucci\JWT\Signer\Rsa\Sha256 as RsaSha256;
 use Lcobucci\JWT\Token;
+use DateTime;
 
 /**
  * @author    Mike Pierce
@@ -85,8 +86,10 @@ class JWT extends Component
      */
     public function verifyJWT(Token $token)
     {
+        // provide explicit DateTimeInterface since lcobucci plugin update now throws errors for an optional param
+        $now = new DateTime();
         // do nothing if token has expired
-        if ($token->isExpired())
+        if ($token->isExpired($now))
             return false;
 
         // check correct claims
