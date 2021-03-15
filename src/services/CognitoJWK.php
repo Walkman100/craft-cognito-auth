@@ -15,6 +15,7 @@ use CoderCat\JWKToPEM\JWKConverter;
 use Craft;
 use craft\base\Component;
 use structureit\craftcognitoauth\CraftCognitoAuth;
+use Lcobucci\JWT\Signer\Key\InMemory;
 
 /**
  * @author    Mike Pierce
@@ -76,6 +77,9 @@ class CognitoJWK extends Component
     {
         $jwkConverter = new JWKConverter();
         $PEM = $jwkConverter->toPEM($jwk);
-        return $PEM;
+
+        // convert to InMemory to satisfy JWT library requirements
+        $PEMInMem = new InMemory($PEM);
+        return $PEMInMem;
     }
 }
