@@ -78,7 +78,7 @@ class CognitoJWK extends Component
         $jwkConverter = new JWKConverter();
         $PEM = $jwkConverter->toPEM($jwk);
 
-        // convert to InMemory to satisfy lcobucci deprecation errors
+        // convert to InMemory to satisfy JWT library requirements
         $PEMInMem = new InMemory($PEM);
         return $PEMInMem;
     }

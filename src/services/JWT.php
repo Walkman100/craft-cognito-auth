@@ -86,7 +86,7 @@ class JWT extends Component
      */
     public function verifyJWT(Token $token)
     {
-        // provide explicit DateTimeInterface since lcobucci plugin update now throws errors for an optional param
+        // provide explicit DateTimeInterface to JWT
         $now = new DateTime();
         // do nothing if token has expired
         if ($token->isExpired($now))
